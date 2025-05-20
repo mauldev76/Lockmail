@@ -12,12 +12,14 @@ LockMail adalah aplikasi GUI berbasis Python dan Tkinter (menggunakan `ttkbootst
 ## Instalasi
 
 1. Clone repositori ini:
+
    ```bash
    git clone https://github.com/username/lockmail.git
    cd lockmail
    ```
 
 2. Install dependensi:
+
    ```bash
    pip install -r requirements.txt
    ```
@@ -32,18 +34,20 @@ LockMail adalah aplikasi GUI berbasis Python dan Tkinter (menggunakan `ttkbootst
 ```
 LockMail/
 │
+├── docs/
+│   └── dokumentasi.md      # Dokumentasi utama aplikasi
+├── tests/
+│   └── test_vigenere.py      # Unit test untuk modul Vigenère
 ├── vigenere.py               # Algoritma enkripsi dan dekripsi Vigenère
 ├── clipboard_utils.py        # Utilitas untuk menyalin teks ke clipboard
 ├── main.py                   # Antarmuka utama GUI aplikasi
-├── tests/
-│   └── test_vigenere.py      # Unit test untuk modul Vigenère
-├── LockMail_Documentation.md # Dokumentasi utama aplikasi
 └── README.md                 # Dokumentasi singkat proyek ini
 ```
 
 ## Pengujian
 
 Untuk menjalankan pengujian:
+
 ```bash
 python -m unittest discover tests
 ```
