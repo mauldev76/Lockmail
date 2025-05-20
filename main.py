@@ -16,9 +16,13 @@ class Enkripsi(ttk.Frame):
         self.pack(fill=BOTH, expand=YES)
 
         self.kunci = ttk.StringVar(value="")
+        self.textbox = None
         self.on_submit_callback = on_submit_callback or self.default_submit
 
         self.create_ui(title)
+    def hapus_pesan(self):
+        self.kunci.set("")
+        self.textbox.delete("1.0", "end")
 
     def create_ui(self, title):
         ttk.Label(self, text=title, font=("Segoe UI", 30, "bold"), anchor=CENTER).pack(pady=(10, 20))
@@ -46,13 +50,15 @@ class Enkripsi(ttk.Frame):
         box.pack(fill=X, pady=(15, 0))
 
         ttk.Button(box, text="Submit", command=self.on_submit_callback, bootstyle=SUCCESS, width=10).pack(side=RIGHT, padx=5)
+        ttk.Button(box, text="Clear", command=self.hapus_pesan, bootstyle=SECONDARY, width=10).pack(side=RIGHT, padx=5)
         ttk.Button(box, text="Cancel", command=self.on_cancel, bootstyle=SECONDARY, width=10).pack(side=RIGHT, padx=5)
+
 
     def default_submit(self):
         teks = self.textbox.get("1.0", "end").strip()
         kunci = self.kunci.get().strip()
         pesan = enkripsi_vigenere(teks, kunci)
-        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?"):
+        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
             copy_text(pesan)
             dialogs.Messagebox.show_info("Pesan telah disalin.")
         print("Enkripsi:", pesan)
@@ -68,7 +74,8 @@ class Dekripsi(Enkripsi):
         teks = self.textbox.get("1.0", "end").strip()
         kunci = self.kunci.get().strip()
         pesan = dekripsi_vigenere(teks, kunci)
-        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?"):
+        
+        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
             copy_text(pesan)
             dialogs.Messagebox.show_info("Pesan telah disalin.")
         print("Dekripsi:", pesan)
