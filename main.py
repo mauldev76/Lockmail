@@ -57,11 +57,19 @@ class Enkripsi(ttk.Frame):
     def default_submit(self):
         teks = self.textbox.get("1.0", "end").strip()
         kunci = self.kunci.get().strip()
-        pesan = enkripsi_vigenere(teks, kunci)
-        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
-            copy_text(pesan)
-            dialogs.Messagebox.show_info("Pesan telah disalin.")
-        print("Enkripsi:", pesan)
+        if teks == "" or kunci == "":
+            dialogs.Messagebox.show_error("masuk kunci atau Isi email")
+        else :
+            if teks.isnumeric() and kunci.isnumeric():
+                dialogs.Messagebox.show_error("isi teks hanya bisa menggunakan huruf")
+                self.hapus_pesan()
+                
+            else:
+                pesan = enkripsi_vigenere(teks, kunci)
+                if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
+                    copy_text(pesan)
+                    dialogs.Messagebox.show_info("Pesan telah disalin.")
+                print("Enkripsi:", pesan)
 
     def on_cancel(self):
         self.winfo_toplevel().destroy()
@@ -73,12 +81,20 @@ class Dekripsi(Enkripsi):
     def on_decrypt(self):
         teks = self.textbox.get("1.0", "end").strip()
         kunci = self.kunci.get().strip()
-        pesan = dekripsi_vigenere(teks, kunci)
-        
-        if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
-            copy_text(pesan)
-            dialogs.Messagebox.show_info("Pesan telah disalin.")
-        print("Dekripsi:", pesan)
+        if teks == "" or kunci == "":
+            dialogs.Messagebox.show_error("masuk kunci atau Isi email")
+        else :
+            if teks.isnumeric() and kunci.isnumeric():
+                dialogs.Messagebox.show_error("isi teks hanya bisa menggunakan huruf")
+                self.hapus_pesan()
+                
+            else:
+                pesan = dekripsi_vigenere(teks, kunci)
+                
+                if dialogs.Messagebox.yesno(pesan, "Salin ke clipboard?") == "yes":
+                    copy_text(pesan)
+                    dialogs.Messagebox.show_info("Pesan telah disalin.")
+                print("Dekripsi:", pesan)
 
 
 if __name__ == "__main__":
